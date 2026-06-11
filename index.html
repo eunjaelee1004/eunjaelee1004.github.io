@@ -1,7 +1,432 @@
 <!DOCTYPE html>
-<html>
-  <body>
-    <h1>Welcome to my Personal Page</h1>
-    <p>Hosted on Github Pages!</p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eunjae Lee</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #2563eb;
+      --primary-light: #eff6ff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --bg: #ffffff;
+      --section-bg: #f8fafc;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      padding: 0 2rem;
+    }
+    .nav-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+    .nav-logo { font-weight: 700; font-size: 1.1rem; color: var(--text); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.9rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--primary); }
+
+    /* HERO */
+    .hero {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 5rem 2rem 4rem;
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+    }
+    .hero-img {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 3px solid var(--border);
+    }
+    .hero-text h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: .4rem; }
+    .hero-text .subtitle { color: var(--primary); font-weight: 500; font-size: 1rem; margin-bottom: 1rem; }
+    .hero-text p { color: var(--muted); font-size: 0.95rem; max-width: 540px; }
+    .hero-links { margin-top: 1.2rem; display: flex; gap: .75rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .45rem 1rem;
+      border-radius: 6px;
+      font-size: .85rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all .2s;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-outline { border: 1px solid var(--border); color: var(--text); background: #fff; }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* SECTIONS */
+    section { padding: 4rem 2rem; }
+    section:nth-child(even) { background: var(--section-bg); }
+    .section-inner { max-width: 960px; margin: 0 auto; }
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      padding-bottom: .6rem;
+      border-bottom: 2px solid var(--primary);
+      display: inline-block;
+    }
+
+    /* CARDS */
+    .card-grid { display: grid; gap: 1.25rem; }
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.4rem 1.6rem;
+    }
+    .card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; margin-bottom: .5rem; }
+    .card h3 { font-size: 1rem; font-weight: 600; }
+    .card .org { font-size: .85rem; color: var(--primary); font-weight: 500; }
+    .card .date { font-size: .8rem; color: var(--muted); white-space: nowrap; }
+    .card p, .card li { font-size: .88rem; color: var(--muted); line-height: 1.7; }
+    .card ul { padding-left: 1.2rem; margin-top: .4rem; }
+    .tag {
+      display: inline-block;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: .75rem;
+      font-weight: 500;
+      padding: .2rem .6rem;
+      border-radius: 99px;
+      margin: .2rem .2rem 0 0;
+    }
+    .award-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      background: #fef9c3;
+      color: #92400e;
+      font-size: .75rem;
+      font-weight: 600;
+      padding: .2rem .7rem;
+      border-radius: 99px;
+    }
+
+    /* EDUCATION */
+    .edu-block { display: flex; gap: 1.5rem; align-items: flex-start; }
+    .edu-icon { font-size: 2rem; flex-shrink: 0; }
+    .edu-block h3 { font-size: 1rem; font-weight: 600; }
+    .edu-block p { font-size: .88rem; color: var(--muted); margin-top: .2rem; }
+
+    /* CONTACT */
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: all .2s;
+    }
+    .contact-card:hover { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-light); }
+    .contact-icon { font-size: 1.5rem; }
+    .contact-card span { font-size: .85rem; color: var(--muted); }
+    .contact-card strong { display: block; font-size: .9rem; }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: .82rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 640px) {
+      .hero { flex-direction: column; text-align: center; padding: 3rem 1.5rem 2.5rem; }
+      .hero-links { justify-content: center; }
+      .nav-links { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Eunjae Lee</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#awards">Awards</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#activities">Activities</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="about">
+  <img src="assets/profile.png" alt="Eunjae Lee" class="hero-img" />
+  <div class="hero-text">
+    <h1>Eunjae Lee</h1>
+    <p class="subtitle">Economics &amp; AI · Seoul National University</p>
+    <p>Aspiring interdisciplinary economist bridging economics, mathematics, and artificial intelligence to model and address social inequality.</p>
+    <div class="hero-links">
+      <a href="mailto:eunjae1004@snu.ac.kr" class="btn btn-primary">✉ Email</a>
+      <a href="https://github.com/eunjaelee1004" target="_blank" class="btn btn-outline">GitHub</a>
+      <a href="https://www.linkedin.com/in/eunjae-lee-a226ba382/" target="_blank" class="btn btn-outline">LinkedIn</a>
+      <a href="https://velog.io/@eunjae1004/posts" target="_blank" class="btn btn-outline">Blog</a>
+    </div>
+  </div>
+</div>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-inner">
+    <div class="section-title">Education</div>
+    <div class="card">
+      <div class="edu-block">
+        <div class="edu-icon">🎓</div>
+        <div>
+          <h3>Seoul National University</h3>
+          <p>B.S. in Economics · Joint Major in Artificial Intelligence</p>
+          <p style="margin-top:.3rem">Expected Graduation: 2029</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HONORS & AWARDS -->
+<section id="awards">
+  <div class="section-inner">
+    <div class="section-title">Honors &amp; Awards</div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="award-badge">🏆 2nd Place</div>
+            <h3 style="margin-top:.5rem">BLACKOUT 2025 Hackathon</h3>
+            <p class="org">Multi-university consortium (SNU, Yonsei, Korea, KAIST, POSTECH, GIST) · AWS &amp; Slack Track</p>
+          </div>
+          <span class="date">Jan 2025</span>
+        </div>
+        <p>Developed an AI-driven assistive tool to enhance digital accessibility for visually impaired students within campus Slack environments. Designed an event-driven, serverless architecture using AWS Lambda and LLM-based text processing. Implemented multimodal content support including image alt-text generation, document summarization, and automated spelling correction.</p>
+        <div style="margin-top:.8rem">
+          <span class="tag">AWS Lambda</span>
+          <span class="tag">Slack API</span>
+          <span class="tag">LLM</span>
+          <span class="tag">Serverless</span>
+          <span class="tag">Accessibility</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-title">Projects</div>
+    <div class="card-grid">
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3>Barrier-Free Slack Classroom</h3>
+            <p class="org">BlackOut Hackathon – 2nd Place</p>
+          </div>
+          <span class="date">Jan 2025</span>
+        </div>
+        <p>A Slack-integrated accessibility tool that automatically generates descriptive alt-text for images and PDF files to support visually impaired students. Proposed the core idea and implemented the frontend interaction flow including Slack message event handling, "View Alt-Text" button UX, and accessibility-aware interface design.</p>
+        <div style="margin-top:.8rem">
+          <span class="tag">AWS Lambda</span><span class="tag">Slack Bolt</span><span class="tag">OpenAI API</span><span class="tag">Accessibility</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3>Referto – AI-Powered Reference Management</h3>
+            <p class="org">SNU LikeLion Project</p>
+          </div>
+          <span class="date">Jun – Aug 2024</span>
+        </div>
+        <p>A web-based reference generation and management service that lets users upload PDF files, automatically generate formatted references using AI, and manage citations by assignment. Responsible for frontend development and frontend–backend integration, implementing user flows such as assignment management, file uploads, citation formatting, and dynamic UI updates.</p>
+        <div style="margin-top:.8rem">
+          <a href="https://velog.io/@eunjae1004/posts" target="_blank" class="btn btn-outline" style="font-size:.78rem;padding:.3rem .7rem">📝 Dev Blog</a>
+        </div>
+        <div style="margin-top:.6rem">
+          <span class="tag">Frontend</span><span class="tag">GPT API</span><span class="tag">React</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3>GraduART – Online Exhibition &amp; Commerce Platform</h3>
+            <p class="org">SNU LikeLion Project</p>
+          </div>
+          <span class="date">Jan 2025</span>
+        </div>
+        <p>A curated online exhibition and sales platform for SNU Fine Arts graduates to showcase and commercialize their graduation works. Contributed to feature refinement, UI/UX improvements, and the transition from prototype to a business-oriented platform. Collected real graduation artworks from art students and supported early-stage business planning.</p>
+        <div style="margin-top:.8rem">
+          <span class="tag">Frontend</span><span class="tag">UI/UX</span><span class="tag">E-Commerce</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3>Movement of Objects – Interdisciplinary Performance</h3>
+            <p class="org">Course Project · Body Sculpture (신체조형)</p>
+          </div>
+          <span class="date">Sep – Dec 2024</span>
+        </div>
+        <p>An interdisciplinary performance project exploring the relationship between sound, movement, and visual expression centered around a single everyday object: a carrier (suitcase). Co-composed original music, designed choreography, integrated visual elements, and produced a fully staged 5-minute live performance. Reflects interest in cross-disciplinary creation and concept-driven storytelling.</p>
+        <div style="margin-top:.8rem">
+          <span class="tag">Music Composition</span><span class="tag">Choreography</span><span class="tag">Interdisciplinary</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ACTIVITIES -->
+<section id="activities">
+  <div class="section-inner">
+    <div class="section-title">Activities &amp; Experience</div>
+    <div class="card-grid">
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3>SNU LikeLion</h3>
+            <p class="org">Tech Entrepreneurship Club · Administrator</p>
+          </div>
+          <span class="date">Mar 2024 – Dec 2025</span>
+        </div>
+        <ul>
+          <li>Educated students about frontend development as part of a tech entrepreneurship club</li>
+          <li>Held ideathons to find real problems solvable by technology and built services to test market response</li>
+          <li>Managed overall operations of the club as Administrator</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3>SNU Women's Ski Team</h3>
+            <p class="org">Club Member</p>
+          </div>
+          <span class="date">Mar 2022 – Present</span>
+        </div>
+        <ul>
+          <li>Earned Level 1 Ski Instructor Certification from Korea Ski Instructors Association (2024)</li>
+          <li>Contributed to Overall Championship in the Women's Division at the 76th KUSTA Cup (2024)</li>
+          <li>Completed three intensive five-week winter training camps (2023, 2024, 2026)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3>International Experience</h3>
+          </div>
+        </div>
+        <ul>
+          <li><strong>SNU-In-World Kazakhstan</strong> (Jul 2023) — University-sponsored one-month academic exchange</li>
+          <li><strong>Canada Solo Travel</strong> (Jul–Aug 2022) — Conducted and published interviews with 10 strangers across Canada</li>
+          <li><strong>Habanha World Traveling School</strong> (Mar–Aug 2018) — Six-month backpacking across Hungary, Slovakia, Poland, Ukraine, Turkey, and Egypt</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3>Other Clubs &amp; Activities</h3>
+          </div>
+        </div>
+        <ul>
+          <li>SNU Biseogong (Sep 2022 – Present)</li>
+          <li>SNU Guitar DoongDoong (Mar 2022 – Present)</li>
+          <li>SNU Women's Soccer Team (Mar 2023 – Aug 2023)</li>
+          <li>45km Solo Walk Challenge — SNU dormitory to Paju (Oct 2022)</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-title">Contact</div>
+    <div class="contact-grid">
+      <a href="mailto:eunjae1004@snu.ac.kr" class="contact-card">
+        <span class="contact-icon">✉️</span>
+        <div>
+          <strong>Email</strong>
+          <span>eunjae1004@snu.ac.kr</span>
+        </div>
+      </a>
+      <a href="https://github.com/eunjaelee1004" target="_blank" class="contact-card">
+        <span class="contact-icon">🐙</span>
+        <div>
+          <strong>GitHub</strong>
+          <span>eunjaelee1004</span>
+        </div>
+      </a>
+      <a href="https://www.linkedin.com/in/eunjae-lee-a226ba382/" target="_blank" class="contact-card">
+        <span class="contact-icon">💼</span>
+        <div>
+          <strong>LinkedIn</strong>
+          <span>eunjae-lee-a226ba382</span>
+        </div>
+      </a>
+      <a href="https://velog.io/@eunjae1004/posts" target="_blank" class="contact-card">
+        <span class="contact-icon">📝</span>
+        <div>
+          <strong>Dev Blog</strong>
+          <span>velog.io/@eunjae1004</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Eunjae Lee · Built with GitHub Pages</p>
+</footer>
+
+</body>
 </html>
